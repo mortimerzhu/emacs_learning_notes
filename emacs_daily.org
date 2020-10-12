@@ -1,0 +1,188 @@
+* 常用总结
+** 快捷键
+*** 文件操作
+Emacs 可以打开很多文件，一个文件可以理解成一个 buffer，你可以在多个文件中来回切换。
+emacs: 打开emacs
+C-z : 挂起 Emacs
+C-x C-c: 关闭 Emacs
+C-x f : 打开一个文件
+C-x s : 保存
+C-x C-b : 打开缓冲区列表
+C-x b : 切回最近的 buffer
+C-x k : 关闭当前缓冲区
+*** 光标移动
+C-n : 下
+C-p : 上
+C-f : 右
+C-b : 左
+M-f : 前进一个单词
+M-b : 后退一个单词
+C-v : 向下翻页
+M-v : 向上翻页
+C-a : 行首
+C-e : 行尾
+M-a : 句首
+M-e : 句尾
+M-{ : 段首
+M-} : 段尾
+M-< : 文件首
+M-> : 文件尾
+*** 文档编辑
+C-d : 向后删除一个字符
+M-d : 向后删除一个单词
+C-k : 删除光标到行尾
+C-@ : 标记(Mark set)
+M-w : 复制
+C-w : 剪切
+C-y : 粘贴
+C-x-u : 撤销上一步操作 //(C-/ 也可以)
+*** 搜索/替换
+C-s : 向前搜索
+C-r : 向后操作
+C-s C-w：选中词组搜索
+M-% ：替换
+*** 窗口操作
+C-x 1 : 只保留当前窗口
+C-x 2 : 水平切分
+C-x 3 : 垂直切分
+C-x o : 切换到另外一个窗口
+C-x 0 : 关闭当前窗口
+*** 代码编辑
+M-; : 块注释
+取消注释用命令 uncomment-region
+C-M-h ：选中函数
+C-M-\ ：代码对齐
+M-/ : 代码补全
+*** emacs命令
+M-x ：输入命令
+C-g ：撤销命令
+常用命令：
+eshell: 在emacs中打开shell
+grep-find：匹配查询
+gdb：代码调试
+compile: 代码编译
+更多命令请输入info
+*** cscope
+先建立索引，然后使用
+C-c s I：建立指定目录的索引或者使用emacs的命令cscope-index-files
+C-c s s ：查找symbol
+C-c s c ：查找函数被谁调用
+C-c s C ：查找函数调用列表
+C-c s i：查找被谁include
+C-c s f ：查找文件
+C-c s t：查找文本
+C-c s u：查找退栈
+查出结果后，使用n(下)、p（上）移动
+*** gdb调试
+进入gdb : M-x gdb，进入gdb模式，gdb命令请参考gdb手册
+打断点：打开代码窗口，在需要打断点的行输入 C-x 空格
+删除断点：在需要删除断点的行输入 C-x a d
+
+* 第一天
+** emacs快捷键 
+打开文件
+移动一格/行
+移动一个word
+上下翻页
+剪切至行末/句末
+撤销
+教程
+查key绑定描述
+查变量描述
+查函数描述
+保存
+执行当前语句
+M-x
+C-g
+关闭buffer
+** lisp语法
+函数格式
+setq
+defun
+global-set-key
+关键词 interactive
+M-x term
+** 配置文件
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(linum-mode t)
+(recentf_mode t)
+(global-hl-line-mode t)
+(show-paren-mode t)
+
+** emacs命令
+eval-buffer
+customize-group 自己配置插件
+packages-autoremove
+info
+clone-indirect-buffer-other-window
+** Org mode
+设置标签：C-c C-t
+开始时间：C-c C-s
+截止时间：C-c C-d
+普通时间：C-c . ;;-范围
+*  第二天
+** 浏览代码
+C-] 跳转到定义
+C-t 返回
+v 选中函数名
+， q q 查找函数引用, 对查找结果还能做过滤，！<str>可以把包含str的结果给排除, C-c C-o 把最终结果显示在新窗口中
+% 在代码头尾之间跳转
+M-x load-theme 然后选srcery配色
+* 第三天
+** 使用最多的功能
+| name                               | key     | comment                                 |
+|------------------------------------+---------+-----------------------------------------|
+| evilmi-jump-items                  | %       | 跳转匹配的tag                           |
+| winum-select-window-2              | , 2     | 选择第二个窗口                          |
+| winum-select-window-1              | , 1     | 选择第一个窗口                          |
+| switch-to-shell-or-ansi-term       | , x z/c | 切换到终端，终端里运行fg就可以切换回来  |
+| escape from evil-insert-state      | kj      | 替代ESC和C-g的功能                      |
+| my-counsel-recentf                 | , r r   |                                         |
+| my-multi-purpose-grep              | , q q   | 查找引用                                |
+| back-to-previous-buffer            | , b b   | 返回之前的buffer                        |
+| winum-select-window-3              | , 3     | 选择第三个窗口                          |
+| counsel-etags-find-tag-at-point    | C-]     | 跳转到函数定义                          |
+| eval-expression                    | , e  e  | 运行当前语句并打印结果                  |
+| evil-visualstar/begin-search-forwd | v * #   | v（可多次）选中区域后，*向前，#向后搜索 |
+| my-evil-goto-defination            | , g t   | 跳转到函数定义                          |
+| copy-to-x-clipboard                | , a a   | 复制到剪贴板                            |
+| pop-tag-mark                       | C-t     | 返回查找索引的位置                      |
+| counsel-imenu                      | , i i   | 查看索引                                |
+| paste-from-x-clipboard             | , p p   | 从剪贴板粘贴                            |
+| toggle-full-window                 | , f f   | 切换当前窗口全屏和还原布局              |
+| evil-toggle-input-method           | C-\     | 切换输入法                              |
+| git-add-current-file               | , v a   | git添加当前文件                         |
+| evilnc-comment-or-uncomment-lines  | , c i   | 注释/取消注释                           |
+| my-plit-window-vertically          | , x 2   | 水平分割窗口                            |
+| find-file-in-project-by-selected   | , k k   | 输入关键字在当前project中查找文件       |
+| delete-other-window                | , x 1   | 销毁其他窗口                            |
+| langtool-goto-next-error           | , l l   | 跳转到下一个error                       |
+| find-function                      | , h f   | 查找emacs函数                           |
+| kill-buffer                        | , x k   | kill buffer                             |
+| my-split-window-horizontally       | , x 3   | 垂直分割窗口                            |
+| narrow-or-widen-dwim               | , w w   | 将当前函数变为单独区域/还原             |
+| counsel-find-file                  | , x f   | 查找文件                                |
+| winner-undo                        | , u u   | 撤销/重做布局操作                       |
+| beginning-of-defun                 | , b f   | 到函数开头位置                          |
+| c-electric-backspace               |         |                                         |
+| evil-a-paren                       |         |                                         |
+| org-shifttab                       | S-Tab   | 回到上一个tab                           |
+| wg-create-workgroup                | SPC s s | 保存当前布局                            |
+| evil-surround-region               |         | ???                                     |
+| ffip-diff-find-file                |         |                                         |
+| flyspell-goto-next-error           | , f e   | 到下一个语法错误                        |
+| counsel-etags-find-tag             | , f t   | 查找关键词                              |
+| ivy-switch-buffer-by-pinyin        | , x b   | 切换buffer                              |
+| my-wg-switch-workgroup             | SPC l l | 切换布局                                |
+| langtool-check-buffer              | , l b   |                                         |
+| find-file-in-project-at-point      | , j j   | 用当前选中的关键词查找文件              |
+| vc-msg-show                        | , v v   | 显示当前行的git提交信息                 |
+| random-healthy-color-theme         | SPC h h | 随机主题                                |
+| goto-char                          | g o     | 跳转到第几个字符                        |
+| ffip-ivy-resume                    | , f r   | 查找文件                                |
+| counsel-grep-or-swiper             | C-s     | 查找符号                                |
+| hydra-launcher/body                | SPC y y | 工具菜单                                |
+| flyspell-buffer                    | , f b   |                                         |
+| evil-forward-WORD-end              | E       | 到单词结尾                              |
+| counsel-browse-kill-ring           | , y y   |                                         |
